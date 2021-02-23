@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/BasicRedisLeaderboardDemoDotNetCore
+/BasicRedisLeaderboardDemoDotNetCore.Base/bin/Debug/netcoreapp3.1
+/BasicRedisLeaderboardDemoDotNetCore.Base/obj
+/BasicRedisLeaderboardDemoDotNetCore.BLL/bin/Debug/netcoreapp3.1
+/BasicRedisLeaderboardDemoDotNetCore.BLL/obj
