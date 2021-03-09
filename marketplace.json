@@ -1,0 +1,24 @@
+{
+    "app_name": "Basic Redis leaderboard example in .NetCore 5",
+    "description": "Showcases how to impliment leaderboard appliation in .NetCore 5",
+    "type": "Building Block",
+    "contributed_by": "Redis Labs",
+    "repo_url": "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet",
+    "download_url": "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/archive/master.zip",
+    "hosted_url": "",
+    "quick_deploy": "true",
+    "deploy_buttons": [
+       
+    ],
+    "language": ["C#", "JavaScript", "HTML", "CSS"],
+    "redis_commands": ["HSET", "ZADD", "ZREVRANGE", "ZRANGE", "ZREVRANGE", "ZSCORE", "ZINCRBY", "ZCOUNT"],
+    "redis_features": ["leaderboard"],
+    "redis_modules": [],
+    "app_image_urls": [
+        "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/blob/master/docs/screenshot001.png?raw=true"
+    ],
+    "youtube_url": "",
+    "special_tags": [],
+    "verticals": ["Financial"],
+    "markdown": "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/blob/master/README.md"
+  }
