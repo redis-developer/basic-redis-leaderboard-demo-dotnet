@@ -4,8 +4,8 @@ EXPOSE 5000
 EXPOSE 443
 
 ENV PORT "5000"
-ENV REDIS_ENDPOINT_URL "0.0.0.0:6379"
-ENV REDIS_PASSWORD "redadsQWE213d"
+ENV REDIS_ENDPOINT_URL "Redis server URI"
+ENV REDIS_PASSWORD "Password to the server"
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
 WORKDIR /src
