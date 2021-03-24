@@ -16,11 +16,29 @@ namespace BasicRedisLeaderboardDemoDotNetCore
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            // Accept the PORT environment variable to enable Cloud Run/Heroku support.
+            var customPort = Environment.GetEnvironmentVariable("PORT");
+            if (customPort != null)
+            {
+                string url = String.Concat("http://0.0.0.0:", customPort);
+
+                return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().UseUrls("http://*:5000");
+                    webBuilder.UseStartup<Startup>().UseUrls(url);
                 });
+            }
+            else
+            {
+
+                return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+            }
+        }
     }
 }
