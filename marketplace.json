@@ -7,7 +7,14 @@
   "download_url": "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/archive/master.zip",
   "hosted_url": "",
   "quick_deploy": "true",
-  "deploy_buttons": [],
+  "deploy_buttons": [
+    {
+      "heroku": "https://heroku.com/deploy?template=https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet"
+    },
+    {
+      "Google": "https://deploy.cloud.run/?git_repo=https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet.git"
+    }
+  ],
   "language": ["C#"],
   "redis_commands": [
     "HSET",
