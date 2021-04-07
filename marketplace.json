@@ -26,7 +26,7 @@
     "ZINCRBY",
     "ZCOUNT"
   ],
-  "redis_features": ["leaderboard"],
+  "redis_features": ["Leaderboard"],
   "redis_modules": [],
   "app_image_urls": [
     "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/blob/master/docs/screenshot001.png?raw=true"
