@@ -42,15 +42,37 @@ Show how the redis works with .Net Core 5.
 
 ### Code Example: Get top 10 companies
 
-```Go
-func (c Controller) Top10() ([]*Company, error) {
-    companies, err := c.r.ZRevRange(keyLeaderBoard, 0, 9)
-    if err != nil {
-        return nil, err
+```C#
+[HttpGet("top10")]
+public IActionResult GetTop10()
+{
+    return Ok(rankService.Range(0, 9, true));
+}
+```
+
+```C#
+public List<RankResponseModel> Range(int start, int ent, bool isDesc)
+{
+    var data = new List<RankResponseModel>();
+    var results = isDesc ? redisClient.GetRangeWithScoresFromSortedSetDesc("REDIS_LEADERBOARD", start, ent) : redisClient.GetRangeWithScoresFromSortedSet("REDIS_LEADERBOARD", start, ent);
+    var startRank = isDesc ? start + 1 : (results.Count / 2 - start);
+    var increaseFactor = isDesc ? 1 : -1;
+    var items = results.Values.ToList();
+    for (var i = 0; i < items.Count; i++)
+    {
+        var company = GetCompanyBySymbol(results.Keys.ToArray()[i]);
+        data.Add(
+            new RankResponseModel
+            {
+                Company = company.Item1,
+                Country = company.Item2,
+                Rank = startRank,
+                Symbol = results.Keys.ToArray()[i],
+                MarketCap = results.Values.ToArray()[i],
+            });
+        startRank += increaseFactor;
     }
-    c.buildCompanies(companies)
-    c.buildRanks(companies)
-    return companies, nil
+    return data;
 }
 ```
 
