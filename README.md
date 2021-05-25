@@ -10,6 +10,12 @@ Show how the redis works with .Net Core 5.
 
 ![How it works](docs/screenshot001.png)
 
+# Overview video
+
+Here's a short video that explains the project and how it uses Redis:
+
+[![Watch the video on YouTube](docs/YTThumbnail.png)](https://www.youtube.com/watch?v=zzinHxdZ34I)
+
 # How it works?
 
 ## How the data is stored:
