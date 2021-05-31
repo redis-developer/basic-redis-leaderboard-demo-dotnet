@@ -8,13 +8,13 @@
 
 Show how the redis works with .Net Core 5.
 
-![How it works](docs/screenshot001.png)
+![How it works](https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/raw/master/docs/screenshot001.png)
 
 # Overview video
 
 Here's a short video that explains the project and how it uses Redis:
 
-[![Watch the video on YouTube](docs/YTThumbnail.png)](https://www.youtube.com/watch?v=zzinHxdZ34I)
+[![Watch the video on YouTube](https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/raw/master/docs/YTThumbnail.png)](https://www.youtube.com/watch?v=zzinHxdZ34I)
 
 # How it works?
 
