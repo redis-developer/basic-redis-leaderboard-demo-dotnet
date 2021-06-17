@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BasicRedisLeaderboardDemoDotNetCore.BLL.Components.RankComponent.Models
+﻿namespace BasicRedisLeaderboardDemoDotNetCore.BLL.Components.RankComponent.Models
 {
     public class RankResponseModel
     {

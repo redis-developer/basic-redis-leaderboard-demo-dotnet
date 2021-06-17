@@ -3,13 +3,11 @@ using BasicRedisLeaderboardDemoDotNetCore.Configs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using ServiceStack.Redis;
+using StackExchange.Redis;
 using System;
 using System.IO;
 using System.Reflection;
@@ -42,9 +40,9 @@ namespace BasicRedisLeaderboardDemoDotNetCore
                 redisConnectionUrl = $"{redisHost}:{redisPort}";
             }
 
-            var redisManager = new RedisManagerPool(redisConnectionUrl);
-            var redis = redisManager.GetClient();
-            services.AddSingleton(redis);
+            var redis = ConnectionMultiplexer.Connect(redisConnectionUrl);
+
+            services.AddSingleton<IConnectionMultiplexer>(redis);
 
             Assembly.Load("BasicRedisLeaderboardDemoDotNetCore.BLL");
             ServiceAutoConfig.Configure(services);

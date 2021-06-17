@@ -1,15 +1,14 @@
 ﻿using BasicRedisLeaderboardDemoDotNetCore.BLL.Components.RankComponent.Models;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceStack.Redis;
-using System;
+using StackExchange.Redis;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace BasicRedisLeaderboardDemoDotNetCore.BLL.DbContexts
 {
     public class AppDbInitializer
     {
-        public static void Seed(IServiceScope serviceScope)
+        public static async Task Seed(IServiceScope serviceScope)
         {
             
             var ranks = new List<RankModel>()
@@ -615,17 +614,18 @@ namespace BasicRedisLeaderboardDemoDotNetCore.BLL.DbContexts
                     Country= "Japan",
                   }
             };
-            var redisClient = serviceScope.ServiceProvider.GetService<IRedisClient>();
+            var redisClient = serviceScope.ServiceProvider.GetService<IConnectionMultiplexer>().GetDatabase();
 
-            redisClient.RemoveByRegex("*");
+            await redisClient.KeyDeleteAsync("*");
 
             for (var i = 0;i< ranks.Count; i++)
             {
                 var rank = ranks[i];
-                redisClient.AddItemToSortedSet("REDIS_LEADERBOARD", rank.Symbol.ToLower(), rank.MarketCap);
-                redisClient.SetRangeInHash(rank.Symbol.ToLower(), new List<KeyValuePair<string, string>> {
-                    new KeyValuePair<string, string>("company", rank.Company),
-                    new KeyValuePair<string, string>("country", rank.Country)
+                await redisClient.SortedSetAddAsync("REDIS_LEADERBOARD", rank.Symbol.ToLower(), rank.MarketCap);
+                await redisClient.HashSetAsync(rank.Symbol.ToLower(), new HashEntry[]
+                {
+                  new HashEntry("company", rank.Company),
+                  new HashEntry("country",rank.Country)
                 });
             }
             
