@@ -1,12 +1,6 @@
-<div style="position: absolute; top: 0px; right: 0px;">
-    <img width="200" height="200" src="https://redislabs.com/wp-content/uploads/2020/12/RedisLabs_Illustration_HomepageHero_v4.svg">
-</div>
+# Basic Redis Leaderboard Demo .NET 5
 
-<div style="height: 150px"></div>
-
-# Basic Redis Leaderboard Demo .Net Core 5
-
-Show how the redis works with .Net Core 5.
+Show how the redis works with .NET 5.
 
 ![How it works](https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/raw/master/docs/screenshot001.png)
 
@@ -20,7 +14,7 @@ Here's a short video that explains the project and how it uses Redis:
 
 ## How the data is stored:
 
-- The AAPL's details - market cap of 2,6 triillions and USA origin - are stored in a hash like below:
+- The AAPL's details - market cap of 2,6 trillions and USA origin - are stored in a hash like below:
   - E.g `HSET "company:AAPL" symbol "AAPL" market_cap "2600000000000" country USA`
 - The Ranks of AAPL of 2,6 trillions are stored in a <a href="https://redislabs.com/ebook/part-1-getting-started/chapter-1-getting-to-know-redis/1-2-what-redis-data-structures-look-like/1-2-5-sorted-sets-in-redis/">ZSET</a>.
   - E.g `ZADD companyLeaderboard 2600000000000 company:AAPL`
@@ -50,34 +44,35 @@ Here's a short video that explains the project and how it uses Redis:
 
 ```C#
 [HttpGet("top10")]
-public IActionResult GetTop10()
+public async Task<IActionResult> GetTop10()
 {
-    return Ok(rankService.Range(0, 9, true));
+    return Ok(await _rankService.Range(0, 9, true));
 }
 ```
 
-```C#
-public List<RankResponseModel> Range(int start, int ent, bool isDesc)
+```csharp
+public async Task<List<RankResponseModel>> Range(int start, int ent, bool isDesc)
 {
-    var data = new List<RankResponseModel>();
-    var results = isDesc ? redisClient.GetRangeWithScoresFromSortedSetDesc("REDIS_LEADERBOARD", start, ent) : redisClient.GetRangeWithScoresFromSortedSet("REDIS_LEADERBOARD", start, ent);
-    var startRank = isDesc ? start + 1 : (results.Count / 2 - start);
+    var data = new List<RankResponseModel>();            
+    var results = await _redisClient.SortedSetRangeByRankWithScoresAsync("REDIS_LEADERBOARD",start,ent, isDesc? Order.Descending:Order.Ascending);
+    var startRank = isDesc ? start + 1 : (results.Count() / 2 - start);
     var increaseFactor = isDesc ? 1 : -1;
-    var items = results.Values.ToList();
+    var items = results.ToList();
     for (var i = 0; i < items.Count; i++)
     {
-        var company = GetCompanyBySymbol(results.Keys.ToArray()[i]);
+        var company = await GetCompanyBySymbol(items[i].Element);
         data.Add(
             new RankResponseModel
             {
                 Company = company.Item1,
                 Country = company.Item2,
                 Rank = startRank,
-                Symbol = results.Keys.ToArray()[i],
-                MarketCap = results.Values.ToArray()[i],
+                Symbol = items[i].Element,
+                MarketCap = items[i].Score,
             });
         startRank += increaseFactor;
     }
+
     return data;
 }
 ```
@@ -93,8 +88,7 @@ git clone https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet
 #### Write in environment variable or Dockerfile actual connection to Redis:
 
 ```
-PORT = "API port"
-REDIS_ENDPOINT_URL = "Redis server URI"
+REDIS_ENDPOINT_URL = "Redis server URI:PORT_NUMBER"
 REDIS_PASSWORD = "Password to the server"
 ```
 
@@ -104,15 +98,7 @@ REDIS_PASSWORD = "Password to the server"
 dotnet run
 ```
 
-#### Run frontend
-
-```sh
-cd BasicRedisLeaderboardDemoDotNetCore/ClientApp
-yarn install
-yarn serve
-```
-
-Static сontent runs automatically with the backend part. In case you need to run it separately, please see README in the [client](client) folder.
+Static content runs automatically with the backend part. In case you need to run it separately, please see README in the [client](client) folder.
 
 ## Try it out
 
