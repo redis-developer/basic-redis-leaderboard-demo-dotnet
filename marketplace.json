@@ -1,5 +1,5 @@
 {
-  "app_name": "Basic Redis leaderboard example in .NetCore 5",
+  "app_name": "Basic Redis Leaderboard App",
   "description": "Showcases how to impliment leaderboard appliation in .NetCore 5",
   "type": "Building Block",
   "contributed_by": "Redis Labs",
