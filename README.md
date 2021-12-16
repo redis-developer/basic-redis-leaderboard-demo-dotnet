@@ -2,7 +2,7 @@
 
 Show how the redis works with .NET 5.
 
-![How it works](https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/raw/master/docs/screenshot001.png)
+![How it works](https://raw.githubusercontent.com/redis-developer/basic-redis-leaderboard-demo-dotnet/master/docs/screenshot001.png)
 
 # Overview video
 
