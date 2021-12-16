@@ -1,5 +1,6 @@
 {
   "name": "Basic Redis Leaderboard Demo .Net Core 5",
+  "repository": "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet",
   "stack": "container",
   "addons": ["rediscloud:30"],
   "env": {
