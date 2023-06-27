@@ -2,7 +2,7 @@
   "app_name": "Basic Redis Leaderboard App",
   "description": "Showcases how to impliment leaderboard appliation in .NetCore 5",
   "type": "Building Block",
-  "contributed_by": "Redis Labs",
+  "contributed_by": "Redis",
   "repo_url": "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet",
   "preview_image_url": "https://raw.githubusercontent.com/redis-developer/basic-redis-leaderboard-demo-dotnet/master/images/app_preview_image.png",
   "download_url": "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/archive/master.zip",
@@ -16,7 +16,9 @@
       "Google": "https://deploy.cloud.run/?git_repo=https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet.git"
     }
   ],
-  "language": ["C#"],
+  "language": [
+    "C#"
+  ],
   "redis_commands": [
     "HSET",
     "ZADD",
@@ -27,13 +29,17 @@
     "ZINCRBY",
     "ZCOUNT"
   ],
-  "redis_features": ["Leaderboard"],
-  "redis_modules": [],
+  "redis_use_cases": [
+    "Leaderboard"
+  ],
+  "redis_features": [],
   "app_image_urls": [
     "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/blob/master/docs/screenshot001.png?raw=true"
   ],
   "youtube_url": "https://www.youtube.com/watch?v=zzinHxdZ34I",
   "special_tags": [],
-  "verticals": ["Others"],
+  "verticals": [
+    "Others"
+  ],
   "markdown": "https://github.com/redis-developer/basic-redis-leaderboard-demo-dotnet/raw/master/README.md"
 }
